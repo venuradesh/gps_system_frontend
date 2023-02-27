@@ -1,0 +1,52 @@
+@import url("https://fonts.googleapis.com/css2?family=Phudu:wght@600&family=Poppins:wght@100;300;500;700&family=Source+Sans+Pro:wght@200;400&display=swap");
+
+:root {
+  /* theme colors */
+  --dark-blue: #2a2740;
+  --graywish-blue: #8a8ba6;
+  --blue: #2c3359;
+  --light-blue: #b4c4d9;
+  --white: #f2f2f2;
+
+  /* typography */
+  --font-family-box: "Phudu", cursive;
+  --font-family-round: "Poppins", sans-serif;
+  --font-family-normal: "Source Sans Pro", sans-serif;
+  --font-w-1: 100;
+  --font-w-2: 200;
+  --font-w-3: 300;
+  --font-w-4: 400;
+  --font-w-5: 500;
+  --font-w-6: 600;
+  --font-w-7: 700;
+
+  /* box shadows */
+  --box-shadow-1: 0 0 3px 0 var(--dark-blue);
+  --box-shadow-2: 0 0 6px 0 var(--dark-blue);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: var(--font-family-normal);
+  font-weight: var(--font-w-4);
+  color: var(--dark-blue);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--dark-blue);
+  border-radius: 50px;
+}
