@@ -12,6 +12,7 @@ function App() {
     faqClick: false,
     contactClick: false,
     loginClick: false,
+    signupClick: false,
   });
 
   console.log(clicks);

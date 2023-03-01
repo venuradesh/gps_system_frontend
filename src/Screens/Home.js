@@ -4,6 +4,8 @@ import styled from "styled-components";
 //components
 import About from "../Components/About";
 import Contact from "../Components/Contact";
+import Login from "../Components/Login";
+import Signup from "../Components/Signup";
 
 //images
 import Cover from "../assets/landing-page.png";
@@ -18,20 +20,28 @@ function Home({ clicks, setClicks }) {
           <div className="heading">With Love, With Secure</div>
           <div className="content">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</div>
           <div className="btn-container">
-            <div className="btn">Signup Now For Free</div>
+            <div
+              className="btn"
+              onClick={() => {
+                console.log("clicked");
+                setClicks({ homeClick: false, mapClick: false, aboutClick: false, faqClick: false, contactClick: false, loginClick: false, signupClick: true });
+              }}
+            >
+              Signup Now For Free
+            </div>
           </div>
         </div>
         <div className="cover-container">
           <img src={Cover} alt="cover" />
         </div>
       </div>
-      {clicks.aboutClick || clicks.contactClick || clicks.loginClick ? (
+      {clicks.aboutClick || clicks.contactClick || clicks.loginClick || clicks.signupClick ? (
         <PopupContainer>
           <div className="container">
-            <div className="close-btn" onClick={() => setClicks({ homeClick: false, mapClick: false, aboutClick: false, faqClick: true, contactClick: false, loginClick: false })}>
+            <div className="close-btn" onClick={() => setClicks({ homeClick: false, mapClick: false, aboutClick: false, faqClick: false, contactClick: false, loginClick: false, signupClick: false })}>
               <img src={CloseBtn} alt="Close Button" />
             </div>
-            {clicks.aboutClick ? <About /> : clicks.contactClick ? <Contact /> : <></>}
+            {clicks.aboutClick ? <About /> : clicks.contactClick ? <Contact /> : clicks.loginClick ? <Login setClicks={setClicks} /> : clicks.signupClick ? <Signup /> : <></>}
           </div>
         </PopupContainer>
       ) : (
@@ -134,12 +144,14 @@ const PopupContainer = styled.div`
     border-radius: 12px;
     padding: 20px;
     position: relative;
+    overflow: hidden;
 
     .close-btn {
       cursor: pointer;
       position: absolute;
       right: 20px;
       top: 20px;
+      z-index: 100;
 
       img {
         width: 20px;
