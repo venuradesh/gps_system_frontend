@@ -12,6 +12,7 @@ import InputField from "./InputField";
 function Signup() {
   const [passengerClick, setPassengerClick] = useState(false);
   const [ownerClick, setOwnerClick] = useState(false);
+  const [nextClick, setNextClick] = useState(false);
 
   return (
     <Container>
@@ -35,7 +36,9 @@ function Signup() {
                 <img src={CoverOwner} alt="Bus Owner" />
               </div>
               <div className="btn-container">
-                <div className="btn">Bus Owner</div>
+                <div className="btn" onClick={() => setOwnerClick(true)}>
+                  Bus Owner
+                </div>
               </div>
             </div>
           </div>
@@ -73,6 +76,64 @@ function Signup() {
             </div>
           </div>
         </Passenger>
+      ) : (
+        <></>
+      )}
+      {ownerClick ? (
+        <Owner>
+          <div className="cover">
+            <img src={CoverOwner} alt="cover-passenger" />
+          </div>
+          <div className="back" onClick={() => setOwnerClick(false)}>
+            <img src={Back} alt="back-btn" />
+          </div>
+          <div className="passenger-background"></div>
+          <div className="content-container">
+            <div className="background-interior"></div>
+            <div className="passenger-heading">Signup for Bus Owners</div>
+            <div className="seprator"></div>
+            <div className="form">
+              {!nextClick ? (
+                <>
+                  <div className="heading-form">Personal Information</div>
+                  <div className="input-items">
+                    <InputField content="First Name" name="bus-firstname" id="bus-firstname" type="text" />
+                    <InputField content="Last Name" name="bus-lastname" id="bus-lastname" type="text" />
+                    <InputField content="Email address" name="bus-email" id="bus-email" type="email" />
+                    <InputField content="Phone Number" name="bus-phone" id="bus-phone" type="tel" />
+                    <InputField content="Password" name="bus-password" id="bus-password" type="Password" />
+                    <InputField content="Confirm Password" name="bus-con-password" id="bus-con-password" type="Password" />
+                    <div className="btn-container">
+                      <div className="next-btn btn" onClick={() => setNextClick(true)}>
+                        Next
+                      </div>
+                      <div className="clear btn">Clear</div>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="heading-form">Bus Details</div>
+                  <div className="input-items">
+                    <InputField content="Bus Name" name="busname" id="busname" type="text" />
+                    <InputField content="Bus Number" name="busnumber" id="busnumber" type="text" />
+                    <InputField content="chassis Number" name="chassis" id="chassis" type="text" />
+                    <InputField content="Bus Route" name="route" id="route" type="text" />
+                    <InputField content="Deprature Time" name="departure" id="departure" type="text" />
+                    <InputField content="Arrival Time" name="arrival" id="arrival" type="text" />
+                    <div className="btn-container">
+                      <div className="submitbtn btn">Submit</div>
+                      <div className="next-btn btn" onClick={() => setNextClick(false)}>
+                        Back
+                      </div>
+                      <div className="clear btn">Clear</div>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+        </Owner>
       ) : (
         <></>
       )}
@@ -172,6 +233,148 @@ const Container = styled.div`
 `;
 
 const Passenger = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+
+  .back {
+    position: absolute;
+    z-index: 100;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    bottom: 0;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    img {
+      width: 30px;
+    }
+  }
+
+  .cover {
+    position: absolute;
+    left: -180px;
+    top: -30px;
+    z-index: 1;
+
+    img {
+      width: 70%;
+    }
+  }
+
+  .passenger-background {
+    position: absolute;
+    margin: -20px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    backdrop-filter: blur(5px);
+    z-index: 2;
+  }
+
+  .passenger-heading {
+    position: absolute;
+    font-size: 1.5rem;
+    font-weight: var(--font-w-7);
+    font-family: var(--font-family-round);
+    color: var(--blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    z-index: 10;
+    transform: rotateZ(270deg) translateX(-55px);
+    bottom: 50%;
+    left: -90px;
+    pointer-events: none;
+  }
+
+  .content-container {
+    width: 85%;
+    height: calc(100% + 10px);
+    background-color: transparent;
+    position: absolute;
+    z-index: 10;
+    border-radius: 12px;
+    box-shadow: var(--box-shadow-2);
+    right: -5px;
+    top: -5px;
+    overflow: hidden;
+
+    .background-interior {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: white;
+      opacity: 0.7;
+    }
+
+    .seprator {
+      width: 2px;
+      height: 80%;
+      background-color: var(--blue);
+      position: absolute;
+      left: 100px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .form {
+      position: absolute;
+      left: 130px;
+      top: 30px;
+      right: 40px;
+      bottom: 20px;
+
+      .heading-form {
+        font-size: 1.3rem;
+        font-weight: var(--font-w-7);
+        font-family: var(--font-family-round);
+        color: var(--blue);
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .input-items {
+        display: flex;
+        flex-direction: column;
+        row-gap: 8px;
+
+        .btn-container {
+          display: flex;
+          align-items: center;
+          justify-content: left;
+          column-gap: 20px;
+          margin-top: 20px;
+
+          .btn {
+            width: 200px;
+            height: 40px;
+            background-color: var(--dark-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            color: var(--white);
+            transition: all 0.3s ease;
+            cursor: pointer;
+
+            &:hover {
+              background-color: var(--blue);
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+const Owner = styled.div`
   width: 100%;
   height: 100%;
   position: relative;
