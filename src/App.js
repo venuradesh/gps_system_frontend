@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
+//components
 import Home from "./Screens/Home";
 import Header from "./Components/Header";
+
+//screens
+import Map from "./Screens/Map";
 
 function App() {
   const [clicks, setClicks] = useState({
@@ -23,6 +28,7 @@ function App() {
         <Header setClicks={setClicks} />
         <Routes>
           <Route exact path="/" element={<Home setClicks={setClicks} clicks={clicks} />} />
+          <Route exact path="/map" element={<Map setClicks={setClicks} clicks={clicks} />} />
         </Routes>
       </Router>
     </Container>
