@@ -20,8 +20,6 @@ function App() {
     signupClick: false,
   });
 
-  console.log(clicks);
-
   return (
     <Container>
       <Router>

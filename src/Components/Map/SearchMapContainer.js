@@ -1,19 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 //components
 import InputField from "../InputField";
 
 function SearchMapContainer() {
+  const [routeName, setRouteName] = useState("");
+  const [busNumber, setBusNumber] = useState("");
+
+  const onSubmitHandle = () => {
+    console.log(routeName, busNumber);
+  };
+
   return (
     <Container>
       <div className="heading">Search By Route or Bus Number</div>
       <div className="input-container">
-        <InputField content="Route Name" id="route" name="route" type="text" />
-        <InputField content="Bus Number" id="busNumber" name="busNumber" type="text" />
+        <InputField content="Route Name" id="route" name="route" type="text" setFunction={setRouteName} />
+        <InputField content="Bus Number" id="busNumber" name="busNumber" type="text" setFunction={setBusNumber} />
       </div>
       <div className="btn-container">
-        <div className="btn">Search</div>
+        <div className="btn" onClick={() => onSubmitHandle()}>
+          Search
+        </div>
       </div>
     </Container>
   );

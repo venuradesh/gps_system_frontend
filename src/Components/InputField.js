@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-const InputField = ({ type, name, id, content }) => {
+const InputField = ({ type, name, id, content, setFunction }) => {
   return (
     <Container>
-      <input type={type} name={name} id={id} className={`${type} input`} autoComplete="off" required />
+      <input type={type} name={name} id={id} className={`${type} input`} autoComplete="off" required onChange={(e) => setFunction(e.target.value)} />
       <label htmlFor={id} className={`label-container `}>
         <span className={`label-content`}>{content}</span>
       </label>

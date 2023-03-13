@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import styled from "styled-components";
 import { useLoadScript } from "@react-google-maps/api";
 import { GoogleMap, Marker, DirectionsRenderer, Circle, MarkerClusterer } from "@react-google-maps/api";
@@ -10,6 +10,7 @@ import ViewStatsBtn from "../Components/Map/ViewStatsBtn";
 import Statistics from "../Components/Map/Statistics";
 
 function Map() {
+  const [statisticsClicked, setStatisticsClicked] = useState(false);
   const center = useMemo(() => ({ lat: 8.5874, lng: 81.2152 }), []);
 
   const { isLoaded } = useLoadScript({
@@ -23,8 +24,8 @@ function Map() {
       <SearchMapContainer />
       <GoogleMap zoom={15} center={center} mapContainerClassName="map-container"></GoogleMap>
       <OtherBusses RouteName="Trincomalee" />
-      <ViewStatsBtn />
-      <Statistics />
+      <ViewStatsBtn statisticsClicked={setStatisticsClicked} />
+      {statisticsClicked ? <Statistics statisticsClicked={setStatisticsClicked} /> : <></>}
     </Container>
   );
 }

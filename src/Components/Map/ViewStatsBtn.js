@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-function ViewStatsBtn() {
-  return <Container>View Statistics</Container>;
+function ViewStatsBtn({ statisticsClicked }) {
+  return <Container onClick={() => statisticsClicked(true)}>View Statistics</Container>;
 }
 
 export default ViewStatsBtn;
