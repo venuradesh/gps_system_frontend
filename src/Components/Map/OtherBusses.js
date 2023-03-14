@@ -1,26 +1,21 @@
 import React from "react";
 import styled from "styled-components";
 
+//data
+import otherBuses from "../../Data/otherBuses";
+
 //images
 import Bus from "../../assets/bus.png";
 
-function OtherBusses({ RouteName }) {
-  const bus = [
-    { busName: "Samitha Express", routeNumber: "138", busNumber: "NB-5565" },
-    { busName: "Samitha Express", routeNumber: "138", busNumber: "NB-5565" },
-    { busName: "Samitha Express", routeNumber: "138", busNumber: "NB-5565" },
-    { busName: "Samitha Express", routeNumber: "138", busNumber: "NB-5565" },
-    { busName: "Samitha Express", routeNumber: "138", busNumber: "NB-5565" },
-  ];
-
+function OtherBusses({ RouteName, setBusMarker }) {
   return (
     <Container>
       <div className="heading">Other Available Busses</div>
       <div className="route-no">Route Name: {RouteName}</div>
       <div className="separator"></div>
       <div className="bus-cards">
-        {bus.map((bus, index) => (
-          <div className="bus-card" key={index}>
+        {otherBuses.map((bus, index) => (
+          <div className="bus-card" key={index} onClick={() => setBusMarker({ lat: bus.lat, lng: bus.lng })}>
             <img src={Bus} alt="bus" />
             <div className="content">
               <div className="bus-name">{bus.busName}</div>
@@ -84,6 +79,7 @@ const Container = styled.div`
       margin-bottom: 5px;
       /* overflow: hidden; */
       height: 150px;
+      cursor: pointer;
 
       img {
         width: 55px;
