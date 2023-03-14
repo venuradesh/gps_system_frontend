@@ -134,7 +134,7 @@ const PopupContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 110;
+  z-index: 210;
 
   .container {
     width: 800px;

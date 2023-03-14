@@ -1,7 +1,7 @@
-import React, { useEffect, useMemo, useState, useRef } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import { useJsApiLoader } from "@react-google-maps/api";
-import { GoogleMap, Marker, DirectionsRenderer, Circle, MarkerClusterer } from "@react-google-maps/api";
+import { GoogleMap, Marker } from "@react-google-maps/api";
 import Geocode from "react-geocode";
 
 //components
@@ -48,7 +48,7 @@ function Map() {
     Geocode.setApiKey("AIzaSyDiTzr7E0cc1vMasy0jYzVhamQpwtzaej8");
 
     if (busNumber) {
-      if (busNumber.length == 7) {
+      if (busNumber.length === 7) {
         setBusMarker({ lat: 6.8433, lng: 80.0032 });
         setError("");
       } else {
