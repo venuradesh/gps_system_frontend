@@ -8,7 +8,9 @@ import Logo from "../assets/logo-long.png";
 //components
 import InputField from "./InputField";
 
-function Login({ setClicks }) {
+function Login({ setClicks, setUser }) {
+  const loginHandler = () => {};
+
   return (
     <Container>
       <div className="cover-container">
@@ -29,7 +31,9 @@ function Login({ setClicks }) {
               <div className="content">Forgot password</div>
             </div>
             <div className="btn-container">
-              <div className="login">Login</div>
+              <div className="login" onClick={() => loginHandler()}>
+                Login
+              </div>
             </div>
           </div>
         </div>

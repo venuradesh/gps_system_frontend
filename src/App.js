@@ -10,6 +10,7 @@ import Header from "./Components/Header";
 import Map from "./Screens/Map";
 
 function App() {
+  const [user, setUser] = useState({ userName: "", password: "" });
   const [clicks, setClicks] = useState({
     homeClick: false,
     mapClick: false,
@@ -23,9 +24,9 @@ function App() {
   return (
     <Container>
       <Router>
-        <Header setClicks={setClicks} />
+        <Header setClicks={setClicks} user={user} />
         <Routes>
-          <Route exact path="/" element={<Home setClicks={setClicks} clicks={clicks} />} />
+          <Route exact path="/" element={<Home setClicks={setClicks} clicks={clicks} setUser={setUser} />} />
           <Route exact path="/map" element={<Map setClicks={setClicks} clicks={clicks} />} />
         </Routes>
       </Router>

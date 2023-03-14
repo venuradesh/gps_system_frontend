@@ -11,7 +11,7 @@ import Signup from "../Components/Signup";
 import Cover from "../assets/landing-page.png";
 import CloseBtn from "../assets/close.png";
 
-function Home({ clicks, setClicks }) {
+function Home({ clicks, setClicks, setUser }) {
   return (
     <Container>
       <div className="background"></div>
@@ -41,7 +41,7 @@ function Home({ clicks, setClicks }) {
             <div className="close-btn" onClick={() => setClicks({ homeClick: false, mapClick: false, aboutClick: false, faqClick: false, contactClick: false, loginClick: false, signupClick: false })}>
               <img src={CloseBtn} alt="Close Button" />
             </div>
-            {clicks.aboutClick ? <About /> : clicks.contactClick ? <Contact /> : clicks.loginClick ? <Login setClicks={setClicks} /> : clicks.signupClick ? <Signup /> : <></>}
+            {clicks.aboutClick ? <About /> : clicks.contactClick ? <Contact /> : clicks.loginClick ? <Login setClicks={setClicks} setUser={setUser} /> : clicks.signupClick ? <Signup /> : <></>}
           </div>
         </PopupContainer>
       ) : (
