@@ -4,12 +4,17 @@ import styled from "styled-components";
 //components
 import InputField from "../InputField";
 
-function SearchMapContainer() {
+function SearchMapContainer({ setBusNumber, setRoute, searchClicked, setSearchClicked, error }) {
   const [routeName, setRouteName] = useState("");
-  const [busNumber, setBusNumber] = useState("");
+  const [bus, setBus] = useState("");
 
   const onSubmitHandle = () => {
-    console.log(routeName, busNumber);
+    searchClicked.search = false;
+
+    if (bus && !routeName) {
+      setBusNumber(bus);
+      setSearchClicked({ search: true });
+    }
   };
 
   return (
@@ -17,8 +22,9 @@ function SearchMapContainer() {
       <div className="heading">Search By Route or Bus Number</div>
       <div className="input-container">
         <InputField content="Route Name" id="route" name="route" type="text" setFunction={setRouteName} />
-        <InputField content="Bus Number" id="busNumber" name="busNumber" type="text" setFunction={setBusNumber} />
+        <InputField content="Bus Number (NB-4555)" id="busNumber" name="busNumber" type="text" setFunction={setBus} />
       </div>
+      {error ? <div className="error-container">{error}</div> : <></>}
       <div className="btn-container">
         <div className="btn" onClick={() => onSubmitHandle()}>
           Search
@@ -56,7 +62,17 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     row-gap: 10px;
+
     margin-bottom: 30px;
+  }
+
+  .error-container {
+    font-size: 0.8rem;
+    opacity: 0.8;
+    color: red;
+    margin-top: -20px;
+    margin-bottom: 10px;
+    text-align: center;
   }
 
   .btn-container {

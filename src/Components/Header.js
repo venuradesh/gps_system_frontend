@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 //images
 import UserProfile from "../assets/user.png";
@@ -12,25 +13,25 @@ function Header({ setClicks }) {
         <img src={Logo} alt="BTS Logo" />
       </div>
       <div className="item-container">
-        <div className="home nav-item" onClick={() => setClicks({ homeClick: true, mapClick: false, aboutClick: false, faqClick: false, contactClick: false, loginClick: false, signupClick: false })}>
+        <Link to="/" className="home nav-item" onClick={() => setClicks({ homeClick: true, mapClick: false, aboutClick: false, faqClick: false, contactClick: false, loginClick: false, signupClick: false })}>
           Home
-        </div>
-        <div className="map nav-item" onClick={() => setClicks({ homeClick: false, mapClick: true, aboutClick: false, faqClick: false, contactClick: false, loginClick: false, signupClick: false })}>
+        </Link>
+        <Link to="/map" className="map nav-item" onClick={() => setClicks({ homeClick: false, mapClick: true, aboutClick: false, faqClick: false, contactClick: false, loginClick: false, signupClick: false })}>
           Map
-        </div>
-        <div className="about-us nav-item" onClick={() => setClicks({ homeClick: false, mapClick: false, aboutClick: true, faqClick: false, contactClick: false, loginClick: false, signupClick: false })}>
+        </Link>
+        <Link to="/" className="about-us nav-item" onClick={() => setClicks({ homeClick: false, mapClick: false, aboutClick: true, faqClick: false, contactClick: false, loginClick: false, signupClick: false })}>
           About Us
-        </div>
-        <div className="faq nav-item" onClick={() => setClicks({ homeClick: false, mapClick: false, aboutClick: false, faqClick: true, contactClick: false, loginClick: false, signupClick: false })}>
+        </Link>
+        <Link to="/" className="faq nav-item" onClick={() => setClicks({ homeClick: false, mapClick: false, aboutClick: false, faqClick: true, contactClick: false, loginClick: false, signupClick: false })}>
           FAQs
-        </div>
-        <div className="contact nav-item" onClick={() => setClicks({ homeClick: false, mapClick: false, aboutClick: false, faqClick: false, contactClick: true, loginClick: false, signupClick: false })}>
+        </Link>
+        <Link to="/" className="contact nav-item" onClick={() => setClicks({ homeClick: false, mapClick: false, aboutClick: false, faqClick: false, contactClick: true, loginClick: false, signupClick: false })}>
           Contact Us
-        </div>
-        <div className="profile nav-item" onClick={() => setClicks({ homeClick: false, mapClick: false, aboutClick: false, faqClick: false, contactClick: false, loginClick: true, signupClick: false })}>
+        </Link>
+        <Link to="/" className="profile nav-item" onClick={() => setClicks({ homeClick: false, mapClick: false, aboutClick: false, faqClick: false, contactClick: false, loginClick: true, signupClick: false })}>
           <img src={UserProfile} alt="Profile" />
           <div className="login">Login</div>
-        </div>
+        </Link>
       </div>
     </Container>
   );

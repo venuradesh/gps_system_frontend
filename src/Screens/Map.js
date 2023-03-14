@@ -1,7 +1,8 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
-import { useLoadScript } from "@react-google-maps/api";
-import { GoogleMap, Marker, DirectionsRenderer, Circle, MarkerClusterer } from "@react-google-maps/api";
+import { useJsApiLoader } from "@react-google-maps/api";
+import { GoogleMap, Marker } from "@react-google-maps/api";
+import Geocode from "react-geocode";
 
 //components
 import SearchMapContainer from "../Components/Map/SearchMapContainer";
@@ -10,21 +11,70 @@ import ViewStatsBtn from "../Components/Map/ViewStatsBtn";
 import Statistics from "../Components/Map/Statistics";
 
 function Map() {
+  const [error, setError] = useState("");
+  const [map, setMap] = useState(/** @type google.maps.Map */ (null));
   const [statisticsClicked, setStatisticsClicked] = useState(false);
-  const center = useMemo(() => ({ lat: 8.5874, lng: 81.2152 }), []);
+  const [busNumber, setBusNumber] = useState("");
+  const [route, setRoute] = useState("");
+  const [busMarker, setBusMarker] = useState({ lat: 0, lng: 0 });
 
-  const { isLoaded } = useLoadScript({
+  const [searchClicked, setSearchClicked] = useState({ search: false });
+
+  const center = useMemo(() => ({ lat: 6.9271, lng: 79.8612 }), []);
+
+  const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: "AIzaSyDiTzr7E0cc1vMasy0jYzVhamQpwtzaej8",
     libraries: ["places"],
   });
 
+  const options = useMemo(
+    () => ({
+      disableDefaultUI: true,
+      clickableIcons: false,
+      fullscreenControl: false,
+      streetViewControl: false,
+    }),
+    []
+  );
+
+  useMemo(() => {
+    if (busMarker.lat) {
+      map.panTo(busMarker);
+      map.setZoom(13);
+    }
+  }, [busMarker]);
+
+  useEffect(() => {
+    Geocode.setApiKey("AIzaSyDiTzr7E0cc1vMasy0jYzVhamQpwtzaej8");
+
+    if (busNumber) {
+      if (busNumber.length === 7) {
+        setBusMarker({ lat: 6.8433, lng: 80.0032 });
+        setError("");
+      } else {
+        setError("Enter a valid Bus Number");
+        map.panTo(center);
+        map.setZoom(10);
+        setBusMarker({ lat: 0, lng: 0 });
+      }
+    }
+  }, [searchClicked]);
+
   if (!isLoaded) return <div>Loading..</div>;
   return (
     <Container>
-      <SearchMapContainer />
-      <GoogleMap zoom={15} center={center} mapContainerClassName="map-container"></GoogleMap>
-      <OtherBusses RouteName="Trincomalee" />
-      <ViewStatsBtn statisticsClicked={setStatisticsClicked} />
+      <SearchMapContainer setBusNumber={setBusNumber} setRoute={setRoute} setSearchClicked={setSearchClicked} searchClicked={searchClicked} error={error} />
+      <GoogleMap zoom={10} center={center} options={options} mapContainerClassName="map-container" onLoad={(map) => setMap(map)}>
+        {busMarker.lat && busMarker.lng ? <Marker position={busMarker} /> : <></>}
+      </GoogleMap>
+      {searchClicked && (busMarker.lat || route) ? <OtherBusses RouteName="Trincomalee" setBusMarker={setBusMarker} /> : <></>}
+      {searchClicked && (busMarker.lat || route) ? (
+        <>
+          <ViewStatsBtn statisticsClicked={setStatisticsClicked} />
+        </>
+      ) : (
+        <></>
+      )}
       {statisticsClicked ? <Statistics statisticsClicked={setStatisticsClicked} /> : <></>}
     </Container>
   );
