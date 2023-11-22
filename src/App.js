@@ -8,6 +8,7 @@ import Header from "./Components/Header";
 
 //screens
 import Map from "./Screens/Map";
+import BusOwnerDashboard from "./Screens/BusOwnerDashboard";
 
 function App() {
   const [user, setUser] = useState({ userName: "", password: "" });
@@ -29,6 +30,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Home setClicks={setClicks} clicks={clicks} setUser={setUser} />} />
           <Route exact path="/map" element={<Map setClicks={setClicks} clicks={clicks} />} />
+          <Route exact path="/owner_dashboard" element={<BusOwnerDashboard />} />
         </Routes>
       </Router>
     </Container>
