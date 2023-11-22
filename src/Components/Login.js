@@ -1,5 +1,7 @@
-import React from "react";
+import React , { useState }from "react";
 import styled from "styled-components";
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 //images
 import Cover from "../assets/login.png";
@@ -9,7 +11,25 @@ import Logo from "../assets/logo-long.png";
 import InputField from "./InputField";
 
 function Login({ setClicks, setUser }) {
-  const loginHandler = () => {};
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+  const loginHandler = async () => {
+    try{
+      const result = await axios.get(`http://127.0.0.1:5001/login/?email=${email}&password=${password}&type=passenger`);
+      console.log(result)
+      if (result.data == true){
+        navigate("/map")
+      }
+      else{
+        navigate("/register")
+      }
+    }
+    catch (error){
+      console.log(error.message)
+    }
+  };
 
   return (
     <Container>
@@ -22,10 +42,10 @@ function Login({ setClicks, setUser }) {
           <div className="heading">Login</div>
           <div className="form-container">
             <div className="username">
-              <InputField content="username" type="text" name="username" id="username" />
+              <InputField content="email" type="text" name="email" id="email" setFunction={setEmail}/>
             </div>
             <div className="password">
-              <InputField content="password" type="text" name="password" id="password" />
+              <InputField content="password" type="text" name="password" id="password" setFunction={setPassword}/>
             </div>
             <div className="forgot-password">
               <div className="content">Forgot password</div>
