@@ -32,7 +32,6 @@ function Signup() {
   const navigate = useNavigate();
 
   const submitClick = async () => {
-    console.log('hi')
     if (passengerClick) {
       try{
         const result = await axios.get(`http://127.0.0.1:5001/register/?firstname=${firstname}&lastname=${lastname}&email=${email}&phone=${phone}&password=${password}&type=passenger`);
@@ -44,7 +43,6 @@ function Signup() {
         console.log(error.message)
       }
     } else if(ownerClick) {
-      console.log('hi')
       const result1 = await axios.get(`http://127.0.0.1:5001/register/?firstname=${firstname}&lastname=${lastname}&email=${email}&phone=${phone}&password=${password}&type=owner`);
       if (result1.data == true){
         const result2 = await axios.get(`http://127.0.0.1:5001/addbus/?busname=${busname}&busnumber=${busnumber}&email=${email}&chassis=${chassis}&route=${route}&departure=${departure}&arrival=${arrival}`);

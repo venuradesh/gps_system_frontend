@@ -48,17 +48,19 @@ function Map() {
 
   useEffect(() => {
     Geocode.setApiKey("AIzaSyCFjTlK4ORisNjGXoAjD-DCMK9jdpWS5dg");
-
+    console.log(busNumber)
     if (busNumber) {
-      setBusMarker({ lat: 8.6539, lng: 81.2127 });
-      if (busNumber.length === 7) {
+      if (busNumber == 'NC-1825'){
+        setBusMarker({ lat: 8.6539, lng: 81.2127 });
+      }
+      else if (busNumber.length === 7) {
         setBusMarker({ lat: 6.8433, lng: 80.0032 });
         setError("");
       } else {
-        // setError("Enter a valid Bus Number");
-        // map.panTo(center);
-        // map.setZoom(10);
-        // setBusMarker({ lat: 0, lng: 0 });
+        setError("Enter a valid Bus Number");
+        map.panTo(center);
+        map.setZoom(10);
+        setBusMarker({ lat: 0, lng: 0 });
       }
     }
   }, [searchClicked]);
