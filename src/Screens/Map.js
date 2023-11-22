@@ -23,9 +23,11 @@ function Map() {
   const center = useMemo(() => ({ lat: 6.9271, lng: 79.8612 }), []);
 
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyASaLb5w-txzFqDaPcsTDFCTmTK3BitisM",
+    googleMapsApiKey: "AIzaSyCFjTlK4ORisNjGXoAjD-DCMK9jdpWS5dg",
     libraries: ["places"],
   });
+
+  console.log(isLoaded);
 
   const options = useMemo(
     () => ({
@@ -45,17 +47,18 @@ function Map() {
   }, [busMarker]);
 
   useEffect(() => {
-    Geocode.setApiKey("AIzaSyDiTzr7E0cc1vMasy0jYzVhamQpwtzaej8");
+    Geocode.setApiKey("AIzaSyCFjTlK4ORisNjGXoAjD-DCMK9jdpWS5dg");
 
     if (busNumber) {
+      setBusMarker({ lat: 8.6539, lng: 81.2127 });
       if (busNumber.length === 7) {
         setBusMarker({ lat: 6.8433, lng: 80.0032 });
         setError("");
       } else {
-        setError("Enter a valid Bus Number");
-        map.panTo(center);
-        map.setZoom(10);
-        setBusMarker({ lat: 0, lng: 0 });
+        // setError("Enter a valid Bus Number");
+        // map.panTo(center);
+        // map.setZoom(10);
+        // setBusMarker({ lat: 0, lng: 0 });
       }
     }
   }, [searchClicked]);
