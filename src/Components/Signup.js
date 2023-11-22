@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 //images
 import CoverPassenger from "../assets/passenger.png";
@@ -13,6 +15,45 @@ function Signup() {
   const [passengerClick, setPassengerClick] = useState(false);
   const [ownerClick, setOwnerClick] = useState(false);
   const [nextClick, setNextClick] = useState(false);
+  const [firstname, setFirstName] = useState("");
+  const [lastname, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [cpassword, setCPassword] = useState("");
+
+  const [busname, setBusName] = useState("");
+  const [busnumber, setBusNumber] = useState("");
+  const [chassis, setChassis] = useState("");
+  const [route, setRoute] = useState("");
+  const [departure, setDeparture] = useState("");
+  const [arrival, setArrival] = useState("");
+
+  const navigate = useNavigate();
+
+  const submitClick = async () => {
+    console.log('hi')
+    if (passengerClick) {
+      try{
+        const result = await axios.get(`http://127.0.0.1:5001/register/?firstname=${firstname}&lastname=${lastname}&email=${email}&phone=${phone}&password=${password}&type=passenger`);
+        if (result.data == true){
+          navigate("/login")
+        }
+      }
+      catch (error){
+        console.log(error.message)
+      }
+    } else if(ownerClick) {
+      console.log('hi')
+      const result1 = await axios.get(`http://127.0.0.1:5001/register/?firstname=${firstname}&lastname=${lastname}&email=${email}&phone=${phone}&password=${password}&type=owner`);
+      if (result1.data == true){
+        const result2 = await axios.get(`http://127.0.0.1:5001/addbus/?busname=${busname}&busnumber=${busnumber}&email=${email}&chassis=${chassis}&route=${route}&departure=${departure}&arrival=${arrival}`);
+        if (result2.data == true){
+          navigate("/login")
+        }
+      }
+    }
+  }
 
   return (
     <Container>
@@ -62,14 +103,14 @@ function Signup() {
             <div className="form">
               <div className="heading-form">Personal Information</div>
               <div className="input-items">
-                <InputField content="First Name" name="firstname" id="firstname" type="text" />
-                <InputField content="Last Name" name="lastname" id="lastname" type="text" />
-                <InputField content="Email address" name="email" id="email" type="email" />
-                <InputField content="Phone Number" name="phone" id="phone" type="tel" />
-                <InputField content="Password" name="password" id="password" type="Password" />
-                <InputField content="Confirm Password" name="con-password" id="con-password" type="Password" />
+                <InputField content="First Name" name="firstname" id="firstname" type="text" setFunction={setFirstName}/>
+                <InputField content="Last Name" name="lastname" id="lastname" type="text" setFunction={setLastName} />
+                <InputField content="Email address" name="email" id="email" type="email" setFunction={setEmail} />
+                <InputField content="Phone Number" name="phone" id="phone" type="tel"  setFunction={setPhone} />
+                <InputField content="Password" name="password" id="password" type="Password" setFunction={setPassword} />
+                <InputField content="Confirm Password" name="con-password" id="con-password" type="Password" setFunction={setCPassword} />
                 <div className="btn-container">
-                  <div className="signup-btn btn">Signup</div>
+                  <div className="signup-btn btn" onClick={submitClick}>Signup</div>
                   <div className="clear btn">Clear</div>
                 </div>
               </div>
@@ -97,12 +138,12 @@ function Signup() {
                 <>
                   <div className="heading-form">Personal Information</div>
                   <div className="input-items">
-                    <InputField content="First Name" name="bus-firstname" id="bus-firstname" type="text" />
-                    <InputField content="Last Name" name="bus-lastname" id="bus-lastname" type="text" />
-                    <InputField content="Email address" name="bus-email" id="bus-email" type="email" />
-                    <InputField content="Phone Number" name="bus-phone" id="bus-phone" type="tel" />
-                    <InputField content="Password" name="bus-password" id="bus-password" type="Password" />
-                    <InputField content="Confirm Password" name="bus-con-password" id="bus-con-password" type="Password" />
+                    <InputField content="First Name" name="bus-firstname" id="bus-firstname" type="text" setFunction={setFirstName}/>
+                    <InputField content="Last Name" name="bus-lastname" id="bus-lastname" type="text" setFunction={setLastName} />
+                    <InputField content="Email address" name="bus-email" id="bus-email" type="email" setFunction={setEmail} />
+                    <InputField content="Phone Number" name="bus-phone" id="bus-phone" type="tel" setFunction={setPhone} />
+                    <InputField content="Password" name="bus-password" id="bus-password" type="Password" setFunction={setPassword} />
+                    <InputField content="Confirm Password" name="bus-con-password" id="bus-con-password" type="Password" setFunction={setCPassword} />
                     <div className="btn-container">
                       <div className="next-btn btn" onClick={() => setNextClick(true)}>
                         Next
@@ -115,14 +156,14 @@ function Signup() {
                 <>
                   <div className="heading-form">Bus Details</div>
                   <div className="input-items">
-                    <InputField content="Bus Name" name="busname" id="busname" type="text" />
-                    <InputField content="Bus Number" name="busnumber" id="busnumber" type="text" />
-                    <InputField content="chassis Number" name="chassis" id="chassis" type="text" />
-                    <InputField content="Bus Route" name="route" id="route" type="text" />
-                    <InputField content="Deprature Time" name="departure" id="departure" type="text" />
-                    <InputField content="Arrival Time" name="arrival" id="arrival" type="text" />
+                    <InputField content="Bus Name" name="busname" id="busname" type="text" setFunction={setBusName}/>
+                    <InputField content="Bus Number" name="busnumber" id="busnumber" type="text" setFunction={setBusNumber}/>
+                    <InputField content="chassis Number" name="chassis" id="chassis" type="text" setFunction={setChassis}/>
+                    <InputField content="Bus Route" name="route" id="route" type="text" setFunction={setRoute}/>
+                    <InputField content="Deprature Time" name="departure" id="departure" type="text" setFunction={setDeparture}/>
+                    <InputField content="Arrival Time" name="arrival" id="arrival" type="text" setFunction={setArrival}/>
                     <div className="btn-container">
-                      <div className="submitbtn btn">Submit</div>
+                      <div className="submitbtn btn" onClick={submitClick}>Submit</div>
                       <div className="next-btn btn" onClick={() => setNextClick(false)}>
                         Back
                       </div>
