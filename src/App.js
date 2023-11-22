@@ -19,6 +19,7 @@ function App() {
     contactClick: false,
     loginClick: false,
     signupClick: false,
+    timetableClick: false,
   });
 
   return (

@@ -23,7 +23,7 @@ function Map() {
   const center = useMemo(() => ({ lat: 6.9271, lng: 79.8612 }), []);
 
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyDiTzr7E0cc1vMasy0jYzVhamQpwtzaej8",
+    googleMapsApiKey: "AIzaSyASaLb5w-txzFqDaPcsTDFCTmTK3BitisM",
     libraries: ["places"],
   });
 
