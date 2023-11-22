@@ -6,6 +6,7 @@ import About from "../Components/About";
 import Contact from "../Components/Contact";
 import Login from "../Components/Login";
 import Signup from "../Components/Signup";
+import Timetable from "../Components/Timetable";
 
 //images
 import Cover from "../assets/landing-page.png";
@@ -24,7 +25,7 @@ function Home({ clicks, setClicks, setUser }) {
               className="btn"
               onClick={() => {
                 console.log("clicked");
-                setClicks({ homeClick: false, mapClick: false, aboutClick: false, faqClick: false, contactClick: false, loginClick: false, signupClick: true });
+                setClicks({ homeClick: false, mapClick: false, aboutClick: false, faqClick: false, contactClick: false, loginClick: false, signupClick: true, timetableClick: false });
               }}
             >
               Signup Now For Free
@@ -35,13 +36,13 @@ function Home({ clicks, setClicks, setUser }) {
           <img src={Cover} alt="cover" />
         </div>
       </div>
-      {clicks.aboutClick || clicks.contactClick || clicks.loginClick || clicks.signupClick ? (
+      {clicks.aboutClick || clicks.contactClick || clicks.loginClick || clicks.signupClick || clicks.timetableClick ? (
         <PopupContainer>
           <div className="container">
             <div className="close-btn" onClick={() => setClicks({ homeClick: false, mapClick: false, aboutClick: false, faqClick: false, contactClick: false, loginClick: false, signupClick: false })}>
               <img src={CloseBtn} alt="Close Button" />
             </div>
-            {clicks.aboutClick ? <About /> : clicks.contactClick ? <Contact /> : clicks.loginClick ? <Login setClicks={setClicks} setUser={setUser} /> : clicks.signupClick ? <Signup /> : <></>}
+            {clicks.aboutClick ? <About /> : clicks.contactClick ? <Contact /> : clicks.loginClick ? <Login setClicks={setClicks} setUser={setUser} /> : clicks.signupClick ? <Signup /> : clicks.timetableClick ? <Timetable /> : <></>}
           </div>
         </PopupContainer>
       ) : (

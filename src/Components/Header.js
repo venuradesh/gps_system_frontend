@@ -13,22 +13,25 @@ function Header({ setClicks }) {
         <img src={Logo} alt="BTS Logo" />
       </div>
       <div className="item-container">
-        <Link to="/" className="home nav-item" onClick={() => setClicks({ homeClick: true, mapClick: false, aboutClick: false, faqClick: false, contactClick: false, loginClick: false, signupClick: false })}>
+        <Link to="/" className="home nav-item" onClick={() => setClicks({ homeClick: true, mapClick: false, aboutClick: false, faqClick: false, contactClick: false, loginClick: false, signupClick: false, timetableClick: false })}>
           Home
         </Link>
-        <Link to="/map" className="map nav-item" onClick={() => setClicks({ homeClick: false, mapClick: true, aboutClick: false, faqClick: false, contactClick: false, loginClick: false, signupClick: false })}>
+        <Link to="/map" className="map nav-item" onClick={() => setClicks({ homeClick: false, mapClick: true, aboutClick: false, faqClick: false, contactClick: false, loginClick: false, signupClick: false, timetableClick: false })}>
           Map
         </Link>
-        <Link to="/" className="about-us nav-item" onClick={() => setClicks({ homeClick: false, mapClick: false, aboutClick: true, faqClick: false, contactClick: false, loginClick: false, signupClick: false })}>
+        <Link to="/" className="about-us nav-item" onClick={() => setClicks({ homeClick: false, mapClick: false, aboutClick: true, faqClick: false, contactClick: false, loginClick: false, signupClick: false, timetableClick: false })}>
           About Us
         </Link>
-        <Link to="/" className="faq nav-item" onClick={() => setClicks({ homeClick: false, mapClick: false, aboutClick: false, faqClick: true, contactClick: false, loginClick: false, signupClick: false })}>
+        <Link to="/" className="faq nav-item" onClick={() => setClicks({ homeClick: false, mapClick: false, aboutClick: false, faqClick: true, contactClick: false, loginClick: false, signupClick: false, timetableClick: false })}>
           FAQs
         </Link>
-        <Link to="/" className="contact nav-item" onClick={() => setClicks({ homeClick: false, mapClick: false, aboutClick: false, faqClick: false, contactClick: true, loginClick: false, signupClick: false })}>
+        <Link to="/" className="time-table nav-item" onClick={() => setClicks({ homeClick: false, mapClick: false, aboutClick: false, faqClick: false, contactClick: false, loginClick: false, signupClick: false, timetableClick: true })}>
+          Time table
+        </Link>
+        <Link to="/" className="contact nav-item" onClick={() => setClicks({ homeClick: false, mapClick: false, aboutClick: false, faqClick: false, contactClick: true, loginClick: false, signupClick: false, timetableClick: false })}>
           Contact Us
         </Link>
-        <Link to="/" className="profile nav-item" onClick={() => setClicks({ homeClick: false, mapClick: false, aboutClick: false, faqClick: false, contactClick: false, loginClick: true, signupClick: false })}>
+        <Link to="/" className="profile nav-item" onClick={() => setClicks({ homeClick: false, mapClick: false, aboutClick: false, faqClick: false, contactClick: false, loginClick: true, signupClick: false, timetableClick: false })}>
           <img src={UserProfile} alt="Profile" />
           <div className="login">Login</div>
         </Link>
