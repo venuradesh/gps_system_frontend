@@ -7,6 +7,8 @@ import UserProfile from "../assets/user.png";
 import Logo from "../assets/logo-long.png";
 
 function Header({ setClicks }) {
+  const email = sessionStorage.getItem('userData');
+  console.log(email)
   return (
     <Container>
       <div className="logo-container">
@@ -33,7 +35,7 @@ function Header({ setClicks }) {
         </Link>
         <Link to="/" className="profile nav-item" onClick={() => setClicks({ homeClick: false, mapClick: false, aboutClick: false, faqClick: false, contactClick: false, loginClick: true, signupClick: false, timetableClick: false })}>
           <img src={UserProfile} alt="Profile" />
-          <div className="login">Login</div>
+          {email ?<div className="login">Logout</div> : <div className="login">Login</div>}
         </Link>
       </div>
     </Container>

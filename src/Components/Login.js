@@ -3,6 +3,7 @@ import styled from "styled-components";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
+
 //images
 import Cover from "../assets/login.png";
 import Logo from "../assets/logo-long.png";
@@ -11,18 +12,23 @@ import Logo from "../assets/logo-long.png";
 import InputField from "./InputField";
 
 function Login({ setClicks, setUser }) {
+  sessionStorage.removeItem('userData');
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
   const loginHandler = async () => {
     try{
-      const result = await axios.get(`http://127.0.0.1:5001/login/?email=${email}&password=${password}&type=passenger`);
-      console.log(result)
-      if (result.data == true){
+      const result = await axios.get(`http://127.0.0.1:5001/login/?email=${email}&password=${password}`);
+      if (result.data.type == 'owner'){
+        sessionStorage.setItem('userData', email);
+        navigate("/owner_dashboard")
+      }
+      else if (result.data.type == 'passenger'){
+        sessionStorage.setItem('userData', email);
         navigate("/map")
       }
-      else{
+      else {
         navigate("/register")
       }
     }

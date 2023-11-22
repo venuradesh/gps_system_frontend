@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 //data
 import buses from "../Data/buses";
@@ -11,6 +13,41 @@ import InputField from "../Components/InputField";
 
 function BusOwnerDashboard() {
   const [addBus, setAddBus] = useState(false);
+  const [buses, setBusses] = useState([]);
+
+  const navigate = useNavigate();
+
+  const email = sessionStorage.getItem('userData');
+
+  useEffect(async () => {
+    const b = await axios.get(`http://127.0.0.1:5001/getBusNumbers/?email=${email}`)
+    console.log(b.data)
+    setBusses(b.data.busnumbers)
+  }, []);
+
+  const [busname, setBusName] = useState("");
+  const [busnumber, setBusNumber] = useState("");
+  const [chassis, setChassis] = useState("");
+  const [route, setRoute] = useState("");
+  const [departure, setDeparture] = useState("");
+  const [arrival, setArrival] = useState("");
+
+  const submitClick = async () => {
+    try{
+      const result2 = await axios.get(`http://127.0.0.1:5001/addbus/?busname=${busname}&busnumber=${busnumber}&email=${email}&chassis=${chassis}&route=${route}&departure=${departure}&arrival=${arrival}`);
+      if (result2.data == true){
+        setAddBus(false)
+        navigate("/owner_dashboard")
+      }
+    }
+    catch(error){
+      console.log(error.message)
+    }
+  }
+
+  const onBusClick = () =>{
+    navigate("/map")
+  }
 
   return (
     <>
@@ -19,7 +56,7 @@ function BusOwnerDashboard() {
           <div className="heading">Owned Buses</div>
           <div className="btn-container">
             {buses.map((bus) => (
-              <button className="btn">{bus}</button>
+              <button className="btn" onClick={onBusClick}>{bus}</button>
             ))}
           </div>
         </div>
@@ -39,14 +76,14 @@ function BusOwnerDashboard() {
           </div>
           <div className="heading-form">Bus Details</div>
           <div className="input-items">
-            <InputField content="Bus Name" name="busname" id="busname" type="text" />
-            <InputField content="Bus Number" name="busnumber" id="busnumber" type="text" />
-            <InputField content="chassis Number" name="chassis" id="chassis" type="text" />
-            <InputField content="Bus Route" name="route" id="route" type="text" />
-            <InputField content="Deprature Time" name="departure" id="departure" type="text" />
-            <InputField content="Arrival Time" name="arrival" id="arrival" type="text" />
+            <InputField content="Bus Name" name="busname" id="busname" type="text" setFunction={setBusName}/>
+            <InputField content="Bus Number" name="busnumber" id="busnumber" type="text" setFunction={setBusNumber}/>
+            <InputField content="chassis Number" name="chassis" id="chassis" type="text" setFunction={setChassis}/>
+            <InputField content="Bus Route" name="route" id="route" type="text" setFunction={setRoute}/>
+            <InputField content="Deprature Time" name="departure" id="departure" type="text" setFunction={setDeparture}/>
+            <InputField content="Arrival Time" name="arrival" id="arrival" type="text" setFunction={setArrival}/>
             <div className="btn-container">
-              <div className="submit btn">Submit</div>
+              <div className="submit btn" onClick={submitClick}>Submit</div>
               <div className="clear btn">Clear</div>
             </div>
           </div>
